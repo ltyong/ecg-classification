@@ -3,7 +3,7 @@
 from os import listdir, mkdir, system
 from os.path import isfile, isdir, join, exists
 
-dir = '/local/scratch/mondejar/dataset/mitdb/'
+dir = 'I:/ecg-classification/dataset/ECG/mitdb/'
 #Create folder
 csv = dir + 'csv'
 if not exists(csv):

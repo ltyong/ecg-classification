@@ -39,7 +39,10 @@ def main():
   window_size = 160
   compute_RR_interval_feature = True
   compute_wavelets = True
-  dataset = '/home/mondejar/dataset/ECG/mitdb/'
+  #dataset = 'I:/ecg-classification/dataset/ECG/mitdb/'
+  curpath = os.path.dirname(os.path.abspath(__file__))
+  dataset = curpath + '/../dataset/ECG/mitdb/'
+
   output_path = dataset + 'm_learning/'
 
   # 0 Load Data
@@ -114,7 +117,7 @@ def main():
   for p in range(0, len(predictions), 1):
       confusion_matrix[predictions[p]][eval_labels[p]] = confusion_matrix[predictions[p]][eval_labels[p]] + 1
   
-  print confusion_matrix
+  print(confusion_matrix)
 
 if __name__ == "__main__":
   main()

@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{679925c2-2495-4b38-868c-c5037f4026be}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>python\run_train_SVM.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId />
+    <InterpreterVersion />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+    <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="dataset\ECG\mitdb\csv\100annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\101annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\102annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\103annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\104annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\105annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\106annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\107annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\108annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\109annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\111annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\112annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\113annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\114annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\115annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\116annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\117annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\118annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\119annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\121annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\122annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\123annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\124annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\200annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\201annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\202annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\203annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\205annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\207annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\208annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\209annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\210annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\212annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\213annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\214annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\215annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\217annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\219annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\220annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\221annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\222annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\223annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\228annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\230annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\231annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\232annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\233annotations.txt" />
+    <Content Include="dataset\ECG\mitdb\csv\234annotations.txt" />
+    <Content Include="LICENSE.txt" />
+    <Content Include="matlab\output\one_vs_one_C-0.0001.txt" />
+    <Content Include="matlab\output\one_vs_one_C-0.001.txt" />
+    <Content Include="matlab\output\one_vs_one_C-0.01.txt" />
+    <Content Include="matlab\output\one_vs_one_C-0.1.txt" />
+    <Content Include="matlab\output\one_vs_one_C-1.txt" />
+    <Content Include="matlab\output\one_vs_one_C-10.txt" />
+    <Content Include="matlab\output\one_vs_one_C-1e-05.txt" />
+    <Content Include="matlab\output\one_vs_one_C-20.txt" />
+    <Content Include="mitbih_database\100annotations.txt" />
+    <Content Include="mitbih_database\101annotations.txt" />
+    <Content Include="mitbih_database\102annotations.txt" />
+    <Content Include="mitbih_database\103annotations.txt" />
+    <Content Include="mitbih_database\104annotations.txt" />
+    <Content Include="mitbih_database\105annotations.txt" />
+    <Content Include="mitbih_database\106annotations.txt" />
+    <Content Include="mitbih_database\107annotations.txt" />
+    <Content Include="mitbih_database\108annotations.txt" />
+    <Content Include="mitbih_database\109annotations.txt" />
+    <Content Include="mitbih_database\111annotations.txt" />
+    <Content Include="mitbih_database\112annotations.txt" />
+    <Content Include="mitbih_database\113annotations.txt" />
+    <Content Include="mitbih_database\114annotations.txt" />
+    <Content Include="mitbih_database\115annotations.txt" />
+    <Content Include="mitbih_database\116annotations.txt" />
+    <Content Include="mitbih_database\117annotations.txt" />
+    <Content Include="mitbih_database\118annotations.txt" />
+    <Content Include="mitbih_database\119annotations.txt" />
+    <Content Include="mitbih_database\121annotations.txt" />
+    <Content Include="mitbih_database\122annotations.txt" />
+    <Content Include="mitbih_database\123annotations.txt" />
+    <Content Include="mitbih_database\124annotations.txt" />
+    <Content Include="mitbih_database\200annotations.txt" />
+    <Content Include="mitbih_database\201annotations.txt" />
+    <Content Include="mitbih_database\202annotations.txt" />
+    <Content Include="mitbih_database\203annotations.txt" />
+    <Content Include="mitbih_database\205annotations.txt" />
+    <Content Include="mitbih_database\207annotations.txt" />
+    <Content Include="mitbih_database\208annotations.txt" />
+    <Content Include="mitbih_database\209annotations.txt" />
+    <Content Include="mitbih_database\210annotations.txt" />
+    <Content Include="mitbih_database\212annotations.txt" />
+    <Content Include="mitbih_database\213annotations.txt" />
+    <Content Include="mitbih_database\214annotations.txt" />
+    <Content Include="mitbih_database\215annotations.txt" />
+    <Content Include="mitbih_database\217annotations.txt" />
+    <Content Include="mitbih_database\219annotations.txt" />
+    <Content Include="mitbih_database\220annotations.txt" />
+    <Content Include="mitbih_database\221annotations.txt" />
+    <Content Include="mitbih_database\222annotations.txt" />
+    <Content Include="mitbih_database\223annotations.txt" />
+    <Content Include="mitbih_database\228annotations.txt" />
+    <Content Include="mitbih_database\230annotations.txt" />
+    <Content Include="mitbih_database\231annotations.txt" />
+    <Content Include="mitbih_database\232annotations.txt" />
+    <Content Include="mitbih_database\233annotations.txt" />
+    <Content Include="mitbih_database\234annotations.txt" />
+    <Content Include="requirements.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="2csv.py" />
+    <Compile Include="DS_fusion.py" />
+    <Compile Include="python\aggregation_voting_strategies.py" />
+    <Compile Include="python\basic_fusion.py" />
+    <Compile Include="python\cross_validation.py" />
+    <Compile Include="python\evaluation_AAMI.py" />
+    <Compile Include="python\features_ECG.py" />
+    <Compile Include="python\feature_selection.py" />
+    <Compile Include="python\load_MITBIH.py" />
+    <Compile Include="python\mit_db.py" />
+    <Compile Include="python\New folder1\evaluation_cm.py" />
+    <Compile Include="python\New folder1\generate_graphics.py" />
+    <Compile Include="python\New folder1\generate_graphics_2.py" />
+    <Compile Include="python\New folder1\testing_kappa.py" />
+    <Compile Include="python\oversampling.py" />
+    <Compile Include="python\run_full_crossval.py" />
+    <Compile Include="python\run_train_SVM.py" />
+    <Compile Include="python\train_SVM.py" />
+    <Compile Include="tensorflow\create_traindataset_mitdb.py" />
+    <Compile Include="tensorflow\dnn_mitdb.py" />
+    <Compile Include="tensorflow\my_dnn_mitdb.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="dataset\" />
+    <Folder Include="dataset\ECG\" />
+    <Folder Include="dataset\ECG\mitdb\" />
+    <Folder Include="dataset\ECG\mitdb\csv" />
+    <Folder Include="matlab\" />
+    <Folder Include="matlab\output" />
+    <Folder Include="mitbih_database" />
+    <Folder Include="python" />
+    <Folder Include="python\New folder1" />
+    <Folder Include="tensorflow" />
+  </ItemGroup>
+  <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />
+</Project>

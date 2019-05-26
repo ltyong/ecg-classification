@@ -157,8 +157,12 @@ def create_oversamp_name(reduced_DS, do_preprocess, compute_morph, winL, winR, m
 def main(multi_mode='ovo', winL=90, winR=90, do_preprocess=True, use_weight_class=True, 
     maxRR=True, use_RR=True, norm_RR=True, compute_morph={''}, oversamp_method = '', pca_k = '', feature_selection = '', do_cross_val = '', C_value = 0.001, gamma_value = 0.0, reduced_DS = False, leads_flag = [1,0]):
     print("Runing train_SVM.py!")
+    curpath = os.path.dirname(os.path.abspath(__file__))
+    db_path = curpath + '/../dataset/ECG/mitdb/m_learning/scikit/'
+    if not os.path.exists(db_path):
+        os.mkdir(db_path)
+    #db_path = 'I:/ecg-classification/dataset/ECG/mitdb/m_learning/scikit/'
 
-    db_path = '/home/mondejar/dataset/ECG/mitdb/m_learning/scikit/'
     
     # Load train data 
     [tr_features, tr_labels, tr_patient_num_beats] = load_mit_db('DS1', winL, winR, do_preprocess,
@@ -167,10 +171,14 @@ def main(multi_mode='ovo', winL=90, winR=90, do_preprocess=True, use_weight_clas
     # Load Test data
     [eval_features, eval_labels, eval_patient_num_beats] = load_mit_db('DS2', winL, winR, do_preprocess, 
         maxRR, use_RR, norm_RR, compute_morph, db_path, reduced_DS, leads_flag)
+    
+    mitdbpath=db_path+'mit_db/'
+    if not os.path.exists(mitdbpath):
+        os.mkdir(mitdbpath)   
     if reduced_DS == True:
-        np.savetxt('mit_db/' + 'exp_2_' + 'DS2_labels.csv', eval_labels.astype(int), '%.0f') 
+        np.savetxt(mitdbpath + 'exp_2_' + 'DS2_labels.csv', eval_labels.astype(int), '%.0f') 
     else:
-        np.savetxt('mit_db/' + 'DS2_labels.csv', eval_labels.astype(int), '%.0f') 
+        np.savetxt(mitdbpath + 'DS2_labels.csv', eval_labels.astype(int), '%.0f') 
 
     #if reduced_DS == True:
     #    np.savetxt('mit_db/' + 'exp_2_' + 'DS1_labels.csv', tr_labels.astype(int), '%.0f') 
@@ -185,9 +193,14 @@ def main(multi_mode='ovo', winL=90, winR=90, do_preprocess=True, use_weight_clas
     if oversamp_method:
         # Filename
         oversamp_features_pickle_name = create_oversamp_name(reduced_DS, do_preprocess, compute_morph, winL, winR, maxRR, use_RR, norm_RR, pca_k)
-
+        overspath=db_path+'oversamp/'
+        if not os.path.exists(overspath):
+            os.mkdir(overspath) 
+        pymitpath=overspath+'python_mit/'
+        if not os.path.exists(pymitpath):
+            os.mkdir(pymitpath)         
         # Do oversampling
-        tr_features, tr_labels = perform_oversampling(oversamp_method, db_path + 'oversamp/python_mit', oversamp_features_pickle_name, tr_features, tr_labels)
+        tr_features, tr_labels = perform_oversampling(oversamp_method, pymitpath, oversamp_features_pickle_name, tr_features, tr_labels)
 
     # Normalization of the input data
     # scaled: zero mean unit variance ( z-score )
@@ -239,13 +252,16 @@ def main(multi_mode='ovo', winL=90, winR=90, do_preprocess=True, use_weight_clas
         print("Time runing IPCA (rbf): " + str(format(end - start, '.2f')) + " sec" )
     ##############################################################
     # 2) Cross-validation: 
-
+    respath=    curpath + '/results/'
     if do_cross_val:
         print("Runing cross val...")
         start = time.time()
 
         # TODO Save data over the k-folds and ranked by the best average values in separated files   
-        perf_measures_path = create_svm_model_name('/home/mondejar/Dropbox/ECG/code/ecg_classification/python/results/' + multi_mode, winL, winR, do_preprocess, 
+        respath=    curpath + '/results/'
+        if not os.path.exists(respath):
+            os.mkdir(respath)
+        perf_measures_path = create_svm_model_name(respath + multi_mode, winL, winR, do_preprocess, 
         maxRR, use_RR, norm_RR, compute_morph, use_weight_class, feature_selection, oversamp_method, leads_flag, reduced_DS,  pca_k, '/')
 
         # TODO implement this method! check to avoid NaN scores....
@@ -262,7 +278,7 @@ def main(multi_mode='ovo', winL=90, winR=90, do_preprocess=True, use_weight_clas
             for k in k_folds:
                 ijk_scores, c_values = run_cross_val(tr_features_scaled, tr_labels, tr_patient_num_beats, do_cross_val, k)
                 # TODO Save data over the k-folds and ranked by the best average values in separated files   
-                perf_measures_path = create_svm_model_name('/home/mondejar/Dropbox/ECG/code/ecg_classification/python/results/' + multi_mode, winL, winR, do_preprocess, 
+                perf_measures_path = create_svm_model_name(respath + multi_mode, winL, winR, do_preprocess, 
                 maxRR, use_RR, norm_RR, compute_morph, use_weight_class, feature_selection, oversamp_method, leads_flag, reduced_DS,  pca_k, '/')
 
                 if not os.path.exists(perf_measures_path):
@@ -281,15 +297,23 @@ def main(multi_mode='ovo', winL=90, winR=90, do_preprocess=True, use_weight_clas
         use_probability = False
 
         model_svm_path = db_path + 'svm_models/' + multi_mode + '_rbf'
-
+        #if not os.path.exists(model_svm_path):
+        #    os.makedirs(model_svm_path)
         model_svm_path = create_svm_model_name(model_svm_path, winL, winR, do_preprocess,
             maxRR, use_RR, norm_RR, compute_morph, use_weight_class, feature_selection,
             oversamp_method, leads_flag, reduced_DS, pca_k, '_')
-
+        #if not os.path.exists(model_svm_path):
+        #    os.makedirs(model_svm_path)
         if gamma_value != 0.0:
             model_svm_path = model_svm_path + '_C_' +  str(C_value) + '_g_' +  str(gamma_value) +'.joblib.pkl'
         else:
             model_svm_path = model_svm_path + '_C_' +  str(C_value) + '.joblib.pkl'
+        #if not os.path.exists(model_svm_path):
+        #    os.makedirs(model_svm_path)
+        
+        mspath = os.path.split(model_svm_path)
+        if not os.path.exists(mspath[0]):
+           os.makedir(mspath[0])  
 
         print("Training model on MIT-BIH DS1: " + model_svm_path + "...")
 
@@ -338,7 +362,7 @@ def main(multi_mode='ovo', winL=90, winR=90, do_preprocess=True, use_weight_clas
         ############################################################################################################
 
         # Evaluate the model on the training data
-        perf_measures_path = create_svm_model_name('/home/mondejar/Dropbox/ECG/code/ecg_classification/python/results/' + multi_mode, winL, winR, do_preprocess, 
+        perf_measures_path = create_svm_model_name(respath + multi_mode, winL, winR, do_preprocess, 
             maxRR, use_RR, norm_RR, compute_morph, use_weight_class, feature_selection, oversamp_method, leads_flag, reduced_DS, pca_k, '/')
 
         # ovo_voting:

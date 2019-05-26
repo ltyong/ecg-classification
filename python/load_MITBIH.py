@@ -14,7 +14,7 @@ Mondejar Guerra, Victor M.
 import os
 import csv
 import gc
-import cPickle as pickle
+import pickle
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -431,6 +431,10 @@ def load_mit_db(DS, winL, winR, do_preprocess, maxRR, use_RR, norm_RR, compute_m
 
         # Set labels array!
         print('writing pickle: ' +  features_labels_name + '...')
+        fiinfos = os.path.split(features_labels_name)
+        fipath = fiinfos[0]
+        if not os.path.exists(fipath):
+            os.mkdir(fipath)
         f = open(features_labels_name, 'wb')
         pickle.dump([features, labels, patient_num_beats], f, 2)
         f.close
@@ -460,7 +464,10 @@ def load_signal(DS, winL, winR, do_preprocess):
 
     size_RR_max = 20
 
-    pathDB = '/home/mondejar/dataset/ECG/'
+    #pathDB = 'I:/ecg-classification/dataset/ECG/'
+    curpath = os.path.dirname(os.path.abspath(__file__))
+    pathDB = curpath + '/../dataset/ECG/'
+    print(pathDB)
     DB_name = 'mitdb'
     fs = 360
     jump_lines = 1
@@ -485,7 +492,7 @@ def load_signal(DS, winL, winR, do_preprocess):
     AAMI_classes.append(['A', 'a', 'J', 'S', 'e', 'j'])     # SVEB 
     AAMI_classes.append(['V', 'E'])                         # VEB
     AAMI_classes.append(['F'])                              # F
-    #AAMI_classes.append(['P', '/', 'f', 'u'])              # Q
+    AAMI_classes.append(['P', '/', 'f', 'u'])              # Q
 
     RAW_signals = []
     r_index = 0
@@ -497,8 +504,8 @@ def load_signal(DS, winL, winR, do_preprocess):
 
         # 1. Read signalR_poses
         filename = pathDB + DB_name + "/csv/" + fRecords[r]
-        print filename
-        f = open(filename, 'rb')
+        print(filename)
+        f = open(filename, 'r')
         reader = csv.reader(f, delimiter=',')
         next(reader) # skip first line!
         MLII_index = 1
@@ -520,8 +527,8 @@ def load_signal(DS, winL, winR, do_preprocess):
 
         # 2. Read annotations
         filename = pathDB + DB_name + "/csv/" + fAnnotations[r]
-        print filename
-        f = open(filename, 'rb')
+        print( filename)
+        f = open(filename, 'r')
         next(f) # skip first line!
 
         annotations = []

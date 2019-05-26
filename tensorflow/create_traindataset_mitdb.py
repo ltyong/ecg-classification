@@ -45,6 +45,7 @@ def get_data_label_mitdb( list_patient, mit_db ):
     data = np.array([], dtype=float)
 
     for p in list_patient:
+        print(p)
         index = mit_db.patients.index(str(p))
         for b in range(0, len(mit_db.classes[index]), 1):
             RR = [mit_db.temporal_features[index].pre_R[b], mit_db.temporal_features[index].post_R[b], mit_db.temporal_features[index].local_R[b], mit_db.temporal_features[index].global_R[b]]
@@ -84,7 +85,9 @@ def get_data_label_mitdb( list_patient, mit_db ):
                 #plt.show()
     return (data, labels)
 
-dataset = '/home/mondejar/dataset/ECG/mitdb/'
+curpath = os.path.dirname(os.path.abspath(__file__))
+dataset = curpath + '/../dataset/ECG/mitdb/'
+#dataset = 'I:/ecg-classification/dataset/ECG/mitdb/'
 output_path = dataset + 'm_learning/'
 window_size = 160
 compute_RR_interval_feature = True
@@ -120,6 +123,7 @@ if not os.path.exists(output_path + 'mit_db_' + str(window_size) + '.p'):
             num_annotations = num_annotations +1
 
     signal_II_w = [ np.array([np.array([])]) for i in range(len(records))]
+    signamit_pickle_namel_II_w = [ np.array([np.array([])]) for i in range(len(records))]
     classes = [[] for i in range(len(records))]
     R_poses = [[] for i in range(len(records))]
     selected_R = [np.array([]) for i in range(len(records))]
@@ -133,13 +137,13 @@ if not os.path.exists(output_path + 'mit_db_' + str(window_size) + '.p'):
     for r in range(0,len(records),1):
         signal_II = []
         print(r)
-        csvfile = open(records[r], 'rb')
-        spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
-        row_index = -1
-        for row in spamreader:
-            if(row_index >= 0):
-                signal_II.insert(row_index, int(row[1]))
-            row_index = row_index +1
+        with open(records[r], 'r') as csvfile:
+            spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
+            row_index = -1
+            for row in spamreader:
+                if(row_index >= 0):
+                    signal_II.insert(row_index, int(row[1]))
+                row_index = row_index +1
 
         # Display signal II 
         #plt.plot(signal_II)
@@ -157,7 +161,7 @@ if not os.path.exists(output_path + 'mit_db_' + str(window_size) + '.p'):
 
         for d in range(1, len(data), 1):
             splitted = data[d].split(' ')
-            splitted = filter(None, splitted) 
+            splitted = list(filter(None, splitted)) 
             pos = int(splitted[1]) 
             type = splitted[2]
             if(type in list_classes):
@@ -166,7 +170,7 @@ if not os.path.exists(output_path + 'mit_db_' + str(window_size) + '.p'):
                     if np.size(signal_II_w[r]) == 0:
                         signal_II_w[r] = beat
                     else:
-                        signamit_pickle_namel_II_w[r] = np.vstack([signal_II_w[r], beat])
+                        signal_II_w[r] = np.vstack([signal_II_w[r], beat])
                         
                     classes[r].append(type)
                     selected_R[r] = np.append(selected_R[r], 1)
@@ -260,7 +264,9 @@ list_train_pat = [101, 106, 108, 109, 112, 114, 115, 116, 118, 119, 122, 124, 20
 list_test_pat = [100, 103, 105, 111, 113, 117, 121, 123, 200, 202, 210, 212, 213, 214, 219, 221, 222, 228, 231, 232, 233, 234]
 
 #TODO export data and label directly like Tensorflow would require     
+print('preparing training data ...')
 train_data, train_labels = get_data_label_mitdb(list_train_pat, mit_db)
+print('preparing test data ...')
 eval_data, eval_labels = get_data_label_mitdb(list_test_pat, mit_db)
 
 extension = '_' + str(window_size)

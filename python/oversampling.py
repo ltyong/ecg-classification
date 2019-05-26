@@ -11,7 +11,7 @@ Mondejar Guerra, Victor M.
 import os
 import csv
 import gc
-import cPickle as pickle
+import pickle
 import time
 from imblearn.over_sampling import SMOTE, ADASYN
 from imblearn.combine import SMOTEENN, SMOTETomek

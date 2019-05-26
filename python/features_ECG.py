@@ -128,7 +128,7 @@ def compute_hos_descriptor(beat, n_intervals, lag):
     hos_b = np.zeros(( (n_intervals-1) * 2))
     for i in range(0, n_intervals-1):
         pose = (lag * (i+1))
-        interval = beat[(pose -(lag/2) ):(pose + (lag/2))]
+        interval = beat[(pose -(lag//2) ):(pose + (lag//2))]
         
         # Skewness  
         hos_b[i] = scipy.stats.skew(interval, 0, True)
@@ -156,11 +156,11 @@ def compute_Uniform_LBP(signal, neigh=8):
     avg_win_size = 2
     # NOTE: Reduce sampling by half
     #signal_avg = scipy.signal.resample(signal, len(signal) / avg_win_size)
-
-    for i in range(neigh/2, len(signal) - neigh/2):
+    nh=neigh//2
+    for i in range(nh, len(signal) - nh):
         pattern = np.zeros(neigh)
         ind = 0
-        for n in range(-neigh/2,0) + range(1,neigh/2+1):
+        for n in list(range(-nh,0)) + list(range(1,nh+1)):
             if signal[i] > signal[i+n]:
                 pattern[ind] = 1          
             ind += 1
@@ -186,11 +186,12 @@ def compute_LBP(signal, neigh=4):
     # Average window-5 of the signal?
     #signal_avg = average_signal(signal, avg_win_size)
     signal_avg = scipy.signal.resample(signal, len(signal) / avg_win_size)
-
-    for i in range(neigh/2, len(signal) - neigh/2):
+    
+    nh=neigh//2
+    for i in range(nh, len(signal) - nh):
         pattern = np.zeros(neigh)
         ind = 0
-        for n in range(-neigh/2,0) + range(1,neigh/2+1):
+        for n in list(range(-nh,0)) + list(range(1,nh+1)):
             if signal[i] > signal[i+n]:
                 pattern[ind] = 1          
             ind += 1
